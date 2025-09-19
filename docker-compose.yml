@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  planopy_api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: planopy_api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  planopy_dash:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: planopy_dash
+    environment:
+      - PLANOPY_API=http://planopy_api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - planopy_api
+    restart: unless-stopped
