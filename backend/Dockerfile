@@ -1,10 +1,7 @@
 FROM python:3.11-slim
 
-WORKDIR /app
+# 👇 adicione estas duas linhas logo depois do FROM
+ARG CACHEBUST=0
+ENV CACHEBUST=${CACHEBUST}
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# ... resto do seu Dockerfile (RUN apt-get..., COPY requirements.txt, pip install, COPY . , etc.)
