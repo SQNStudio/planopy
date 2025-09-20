@@ -13,8 +13,8 @@ PUBLIC_HOST = os.getenv("PUBLIC_HOST", "srv1009379.hstgr.cloud")
 PUBLIC_API_DOCS = f"https://{PUBLIC_HOST}/api/docs"
 
 st.title("📊 PlanoPy Dashboard")
-st.caption(f"API interna: {API}")
-st.markdown(f"🔗 **Swagger da API:** [{PUBLIC_API_DOCS}]({PUBLIC_API_DOCS})")
+st.caption(f"API interna alvo: {API}")
+st.markdown(f"🔗 **Swagger da API:** https://{PUBLIC_HOST}/api/docs")
 
 with st.sidebar:
     st.subheader("Filtros")
@@ -31,11 +31,12 @@ try:
     r = requests.get(f"{API}/", timeout=5)
     r.raise_for_status()
     st.success(f"API OK • {r.json()}")
-    ok = True
+
 except Exception as e:
     st.error(f"Falha ao conectar na API em {API}: {e}")
 
 st.divider()
+st.write("Painéis e gráficos entram aqui…")
 
 def fetch_metrics(scn: str):
     resp = requests.get(
